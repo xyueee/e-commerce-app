@@ -1,0 +1,18 @@
+.navbar {
+  background-color: #8ec5fc;
+  height: 1rem;
+}
+.navbar a {
+  margin: 0 1rem;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  color: lightblue;
+}
+
+.navbar button {
+  align-items: right;
+}
