@@ -32,9 +32,14 @@ function App() {
     //   </Routes>
     // </Router>
     <div className="App">
-      {/* <Login></Login> */}
+      <Router>
+        <Routes>
+          <Route exact path="/" Component={Login} />
+          <Route path="/products" Component={Products} />
+        </Routes>
+      </Router>
       {/* <Navbar></Navbar> */}
-      <Products></Products>
+      {/* <Products></Products> */}
       {/* <ProductDetail></ProductDetail> */}
     </div>
   );
