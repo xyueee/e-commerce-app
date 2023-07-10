@@ -3,8 +3,9 @@ import "./App.css";
 import Login from "./Components/Login";
 import Navbar from "./Components/Navbar";
 import Products from "./Components/Products";
-
-// const [cartItems, setCartItems] = useState([]);
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import ProductDetail from "./Components/ProductDetail";
 
 //pass function to product detail page
 // const addItemToCart = () => {
@@ -20,11 +21,21 @@ import Products from "./Components/Products";
 // };
 
 function App() {
+  const [cartItems, setCartItems] = useState([]);
+  const addItemToCart = () => [];
+
   return (
+    // <Router>
+    //   <Routes>
+    //     <Route exact path="/login" Component={Login} />
+    //     <Route path="/products" Component={Products} />
+    //   </Routes>
+    // </Router>
     <div className="App">
       {/* <Login></Login> */}
       {/* <Navbar></Navbar> */}
       <Products></Products>
+      {/* <ProductDetail></ProductDetail> */}
     </div>
   );
 }

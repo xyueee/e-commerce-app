@@ -5,6 +5,8 @@ import {
 } from "react-icons/ai";
 import "../Styles/Products.css";
 import { useState, useEffect } from "react";
+import ProductDetail from "./ProductDetail";
+import Modal from "react-modal";
 
 const Products = () => {
   const [data, setData] = useState([]);
@@ -12,6 +14,7 @@ const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const slicedData = data.slice(startIndex, startIndex + 10);
 
@@ -72,6 +75,11 @@ const Products = () => {
     console.log("category", uniqueCategories);
   };
 
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+    console.log("product", product);
+  };
+
   //useEffect -> do some side effect everytime state changes
 
   return (
@@ -97,7 +105,11 @@ const Products = () => {
       </div>
       <div className="product-container">
         {slicedData.map((item) => (
-          <div className="product" key={item.id}>
+          <div
+            className="product"
+            key={item.id}
+            onClick={() => handleProductClick(item)}
+          >
             <img src={item.images[0]} alt={item.title}></img>
             {/* <div className="image-conatiner">
                   {item.images.map((image, imageIndex) => (
@@ -111,6 +123,7 @@ const Products = () => {
             {/* <p>ID : {item.id}</p> */}
             <div className="product-info-container">
               <p>Name: {item.title}</p>
+              <p>{item.category}</p>
               <p>$ {item.price}</p>
             </div>
           </div>
@@ -119,15 +132,28 @@ const Products = () => {
       <div className="show-more">
         {showLess && (
           <button onClick={handleShowLess}>
-            <AiFillCaretLeft />
+            <AiFillCaretLeft className="less-icon" />
           </button>
         )}
         {showMore && (
           <button onClick={handleShowMore}>
-            <AiFillCaretRight />
+            <AiFillCaretRight className="more-icon" />
           </button>
         )}
       </div>
+      {selectedProduct && (
+        <Modal
+          isOpen={true}
+          onRequestClose={() => setSelectedProduct(null)}
+          appElement={document.getElementById("root")}
+          ariaHideApp={false}
+        >
+          <ProductDetail
+            product={selectedProduct}
+            onClose={() => setSelectedProduct(null)}
+          />
+        </Modal>
+      )}
     </>
   );
 };

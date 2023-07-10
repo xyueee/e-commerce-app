@@ -65,3 +65,34 @@
   margin-right: 0.5rem;
   margin-left: 0.5rem;
 }
+.more-icon {
+  font-size: 18px;
+}
+.less-icon {
+  font-size: 18px;
+}
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0.5rem;
+  padding: 0.2rem;
+}
+
+.search-bar input,
+select,
+button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0.2rem 0.1rem;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 2px;
+  padding: 0.3rem 0.1rem;
+}
+.search-bar button {
+  padding: 0.4rem;
+}
