@@ -2,11 +2,15 @@ import {
   AiFillCaretLeft,
   AiFillCaretRight,
   AiOutlineSearch,
+  AiOutlineShoppingCart,
 } from "react-icons/ai";
 import "../Styles/Products.css";
 import { useState, useEffect } from "react";
 import ProductDetail from "./ProductDetail";
 import Modal from "react-modal";
+
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const [data, setData] = useState([]);
@@ -20,6 +24,11 @@ const Products = () => {
 
   const showLess = startIndex > 0;
   const showMore = startIndex + 10 < data.length;
+
+  const location = useLocation();
+  const authHeader = location.state?.authHeader;
+  const userId = location.state?.userId;
+  const navigate = useNavigate();
 
   //do some side effect if state changes
 
@@ -80,10 +89,15 @@ const Products = () => {
     console.log("product", product);
   };
 
+  const handleToCart = (userId) => {
+    navigate("/cart", { state: { userId } });
+  };
+
   //useEffect -> do some side effect everytime state changes
 
   return (
     <>
+      <div>{userId}</div>
       <div className="search-bar">
         <input
           type="text"
@@ -101,6 +115,9 @@ const Products = () => {
         </select>
         <button onClick={() => handleSearch()}>
           <AiOutlineSearch />
+        </button>
+        <button onClick={() => handleToCart(userId)}>
+          <AiOutlineShoppingCart />
         </button>
       </div>
       <div className="product-container">

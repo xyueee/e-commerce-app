@@ -7,6 +7,9 @@ const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
 
+  const [authHeader, setAuthHeader] = useState(null);
+  const [userId, setUserId] = useState(null);
+
   const [username, setUsername] = useState("kminchelle");
   const [password, setPassword] = useState("0lelplR");
   const [errMessage, setErrMessage] = useState("");
@@ -31,20 +34,21 @@ const Login = () => {
           password: password,
         }),
       });
-      // .then((res) => res.json())
-      // .then(console.log);
 
       if (response) {
         const data = await response.json();
 
         const token = data.token; // Assuming the token is returned as 'token' in the response data
-        console.log("Token", token);
         // Set the token in the header for subsequent requests
+
+        const userId = data.id;
+
         const authHeader = {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         };
         console.log("Header", authHeader);
+
         // Example: Fetch user data using the token
         // const userDataResponse = await fetch("https://dummyjson.com/api/user", {
         //   headers: authHeader,
@@ -55,6 +59,10 @@ const Login = () => {
         // } else {
         //   // Handle error when fetching user data
         // }
+
+        setAuthHeader(authHeader);
+        setUserId(userId);
+
         setSuccess(true);
       } else {
         setErrMessage("Invalid username or password");
@@ -67,11 +75,7 @@ const Login = () => {
   return (
     <>
       {success ? (
-        // <section>
-        //   <h1>Succesful Logged In</h1>
-        //   <br />
-        // </section>
-        navigate("/products")
+        navigate("/products", { state: { authHeader, userId } })
       ) : (
         <section></section>
       )}
