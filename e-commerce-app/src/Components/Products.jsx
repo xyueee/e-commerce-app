@@ -11,6 +11,7 @@ import Modal from "react-modal";
 
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Cart from "./Cart";
 
 const Products = () => {
   const [data, setData] = useState([]);
@@ -19,6 +20,7 @@ const Products = () => {
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [addProduct, setAddProduct] = useState(null);
 
   const slicedData = data.slice(startIndex, startIndex + 10);
 
@@ -28,6 +30,10 @@ const Products = () => {
   const location = useLocation();
   const authHeader = location.state?.authHeader;
   const userId = location.state?.userId;
+  const productId = location.state?.productId;
+
+  // const [cartId, setCartId] = useState(null);
+  // const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
 
   //do some side effect if state changes
@@ -59,6 +65,9 @@ const Products = () => {
   const handleSearch = async () => {
     try {
       let url = `https://dummyjson.com/products`;
+      if (searchTerm !== "" && category !== "") {
+        url += `/search?q=${searchTerm}&category/${category}`;
+      }
       if (searchTerm !== "") {
         url += `/search?q=${searchTerm}`;
       }
@@ -86,25 +95,21 @@ const Products = () => {
 
   const handleProductClick = (product) => {
     setSelectedProduct(product);
-    console.log("product", product);
+  };
+  const handleAddCart = (product) => {
+    setAddProduct(product.id);
   };
 
   const handleToCart = (userId) => {
     navigate("/cart", { state: { userId } });
+    console.log(userId);
   };
 
   //useEffect -> do some side effect everytime state changes
 
   return (
     <>
-      <div>{userId}</div>
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+      <div className="product-tab">
         <select value={category} onChange={(e) => setCategory(e.target.value)}>
           <option value="">All Categories</option>
           {categories.map((cat, index) => (
@@ -113,36 +118,50 @@ const Products = () => {
             </option>
           ))}
         </select>
-        <button onClick={() => handleSearch()}>
-          <AiOutlineSearch />
-        </button>
+
         <button onClick={() => handleToCart(userId)}>
           <AiOutlineShoppingCart />
         </button>
+        <div className="search">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button onClick={() => handleSearch()}>
+            <AiOutlineSearch />
+          </button>
+        </div>
       </div>
       <div className="product-container">
         {slicedData.map((item) => (
-          <div
-            className="product"
-            key={item.id}
-            onClick={() => handleProductClick(item)}
-          >
-            <img src={item.images[0]} alt={item.title}></img>
+          <div className="product" key={item.id}>
+            <img
+              src={item.images[0]}
+              alt={item.title}
+              onClick={() => handleProductClick(item)}
+            ></img>
             {/* <div className="image-conatiner">
-                  {item.images.map((image, imageIndex) => (
-                    <img
-                      key={imageIndex}
-                      src={image}
-                      alt={`Image ${imageIndex + 1}`}
-                    />
-                  ))}
-                </div> */}
+                    {item.images.map((image, imageIndex) => (
+                      <img
+                        key={imageIndex}
+                        src={image}
+                        alt={`Image ${imageIndex + 1}`}
+                      />
+                    ))}
+                  </div> */}
             {/* <p>ID : {item.id}</p> */}
-            <div className="product-info-container">
+            <div
+              className="product-info-container"
+              onClick={() => handleProductClick(item)}
+            >
               <p>Name: {item.title}</p>
               <p>{item.category}</p>
               <p>$ {item.price}</p>
             </div>
+            {/* <button onClick={handleAddToCart}>Add TO Cart</button> */}
+            {/* <button onClick={() => handleAddCart(item)}>Add to Cart</button> */}
           </div>
         ))}
       </div>
