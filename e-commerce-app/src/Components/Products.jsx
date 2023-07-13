@@ -13,7 +13,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Cart from "./Cart";
 
-const Products = () => {
+const Products = ({ userId, handleAddToCart }) => {
   const [data, setData] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
@@ -28,17 +28,9 @@ const Products = () => {
   const showMore = startIndex + 10 < data.length;
 
   const location = useLocation();
-  const authHeader = location.state?.authHeader;
-  const userId = location.state?.userId;
   const productId = location.state?.productId;
 
-  // const [cartId, setCartId] = useState(null);
-  // const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
-
-  //do some side effect if state changes
-
-  //empty array [] = load once
 
   useEffect(() => {
     fetchData();
@@ -160,8 +152,10 @@ const Products = () => {
               <p>{item.category}</p>
               <p>$ {item.price}</p>
             </div>
-            {/* <button onClick={handleAddToCart}>Add TO Cart</button> */}
-            {/* <button onClick={() => handleAddCart(item)}>Add to Cart</button> */}
+            {/* <button onClick={handleAddToCart}>Add To Cart</button> */}
+            <button onClick={() => handleAddToCart(item.id)}>
+              Add to Cart
+            </button>
           </div>
         ))}
       </div>
@@ -186,6 +180,7 @@ const Products = () => {
         >
           <ProductDetail
             product={selectedProduct}
+            handleAddToCart={handleAddToCart}
             onClose={() => setSelectedProduct(null)}
           />
         </Modal>

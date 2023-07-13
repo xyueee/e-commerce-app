@@ -3,12 +3,11 @@ import { BrowserRouter as Router, Route, useNavigate } from "react-router-dom";
 
 import { useEffect, useRef, useState, useContext } from "react";
 
-const Login = () => {
+const Login = ({ setUserId, setAuthHeader }) => {
   const userRef = useRef();
   const errRef = useRef();
 
-  const [authHeader, setAuthHeader] = useState(null);
-  const [userId, setUserId] = useState(null);
+  // const [userId, setUserId] = useState(null);
 
   const [username, setUsername] = useState("kminchelle");
   const [password, setPassword] = useState("0lelplR");
@@ -38,7 +37,11 @@ const Login = () => {
       if (response) {
         const data = await response.json();
 
-        const token = data.token; // Assuming the token is returned as 'token' in the response data
+        const token = data.token;
+
+        sessionStorage.setItem("token", token);
+
+        // Assuming the token is returned as 'token' in the response data
         // Set the token in the header for subsequent requests
 
         const userId = data.id;
@@ -74,11 +77,7 @@ const Login = () => {
 
   return (
     <>
-      {success ? (
-        navigate("/products", { state: { authHeader, userId } })
-      ) : (
-        <section></section>
-      )}
+      {success ? navigate("/products") : <section></section>}
       <div className="login-container">
         <h1>Welcome !</h1>
         <form className="login-form" onSubmit={handleSubmit}>

@@ -24,6 +24,12 @@
   height: auto;
   font-size: 18px;
 }
+
+.product-details > button {
+  margin: 0.3rem;
+  float: right;
+  border-radius: 5px;
+}
 .product-details-container {
   position: fixed;
   top: 50%;
@@ -34,7 +40,7 @@
   background-color: #8ec5fc;
   border-radius: 10px;
 }
-.product-details-container button {
+.product-details-container > button {
   align-self: flex-end;
   margin-top: 0.5rem;
   margin-right: 0.5rem;

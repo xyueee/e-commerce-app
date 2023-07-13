@@ -3,10 +3,12 @@ import "../Styles/ProductDetails.css";
 import { AiFillCloseCircle } from "react-icons/ai";
 Modal.setAppElement("#root");
 
-const ProductDetail = ({ product, onClose }) => {
+const ProductDetail = ({ product, onClose, handleAddToCart }) => {
+  console.log("typeof handleAddToCart", typeof handleAddToCart);
   if (!product) {
     return null; // Return null if product details are not available
   }
+
   return (
     <Modal
       className="product-details-container"
@@ -24,6 +26,7 @@ const ProductDetail = ({ product, onClose }) => {
         <p>
           Description: <br></br> {product.description}
         </p>
+        <button onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
       </div>
     </Modal>
   );

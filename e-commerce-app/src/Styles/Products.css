@@ -59,6 +59,12 @@
   font-weight: bold;
 }
 
+.product button {
+  margin: 0.3rem;
+  float: right;
+  border-radius: 5px;
+}
+
 .show-more {
   display: flex;
   flex-direction: row;
