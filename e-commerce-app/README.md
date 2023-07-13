@@ -1,4 +1,17 @@
-# Getting Started with Create React App
+**Note: This app is designed for mobile view**. Please use a mobile device or a mobile view simulator in your web browser to experience the app's interface and functionality.
+
+![Screenshot](e-commerce-app/screenshots/Login.png)
+*Figure 1: Example screenshot of the login interface.(http://localhost:3000)* 
+
+![Screenshot](e-commerce-app/screenshots/Product%20List.png)
+*Figure 2: Example screenshot of the Products interface.(http://localhost:3000/products)*
+
+![Screenshot](e-commerce-app/screenshots/Product%20Details.png)
+*Figure 1: Example screenshot of the Product Details interface.*
+
+![Screenshot](e-commerce-app/screenshots/Cart.png)
+*Figure 1: Example screenshot of the Cart interface.(http://localhost:3000/cart)*
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
